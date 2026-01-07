@@ -1,0 +1,28 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  padding: 1rem 2rem;
+  background-color: #fff;
+  border-bottom: 1px solid #eaeaea;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+}
+
+.footer {
+  padding: 1rem 2rem;
+  background-color: #fafafa;
+  border-top: 1px solid #eaeaea;
+  text-align: center;
+  font-size: 0.875rem;
+  color: #666;
+}

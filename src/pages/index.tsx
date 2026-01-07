@@ -1,20 +1,43 @@
-import Head from "next/head";
-import Image from "next/image";
-import localFont from "next/font/local";
-import styles from "@/styles/Home.module.css";
+import Head from 'next/head';
+import Image from 'next/image';
+import localFont from 'next/font/local';
+import styles from '@/styles/Home.module.css';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import UserProfile from '@/components/UserProfile';
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
+  src: './fonts/GeistVF.woff',
+  variable: '--font-geist-sans',
+  weight: '100 900',
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+  src: './fonts/GeistMonoVF.woff',
+  variable: '--font-geist-mono',
+  weight: '100 900',
 });
 
 export default function Home() {
+  const [count, setCount] = useState(0);
+
+  const handleClick = () => {
+    console.log('Button clicked!');
+    setCount(count + 1);
+  };
+
+  const btn = useMemo(() => {
+    return <button onClick={handleClick}>{count}</button>;
+  }, [count, handleClick]);
+
+  const countRef = useRef(0);
+
+  const handleClickRef = () => {
+    countRef.current += 1;
+  };
+
+  useEffect(() => {
+    console.log('%c countRef.current', 'color: orange; font-size: 20px;', countRef.current);
+  }, [countRef.current]);
+
   return (
     <>
       <Head>
@@ -23,9 +46,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div
-        className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}
-      >
+      <div className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}>
+        <UserProfile />
+        <button onClick={handleClick}>click</button>
+        <button onClick={handleClickRef}>click REf</button>
+        {btn}
         <main className={styles.main}>
           <Image
             className={styles.logo}
@@ -42,13 +67,30 @@ export default function Home() {
             <li>Save and see your changes instantly.</li>
           </ol>
 
+          <div
+            style={{
+              background: 'orange',
+              width: '50px',
+              height: '50px',
+            }}>
+            <svg
+              style={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <use href="./test.svg#testSvg"></use>
+            </svg>
+          </div>
+
           <div className={styles.ctas}>
             <a
               className={styles.primary}
               href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
               <Image
                 className={styles.logo}
                 src="https://nextjs.org/icons/vercel.svg"
@@ -62,8 +104,7 @@ export default function Home() {
               href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
               target="_blank"
               rel="noopener noreferrer"
-              className={styles.secondary}
-            >
+              className={styles.secondary}>
               Read our docs
             </a>
           </div>
@@ -72,8 +113,7 @@ export default function Home() {
           <a
             href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             target="_blank"
-            rel="noopener noreferrer"
-          >
+            rel="noopener noreferrer">
             <Image
               aria-hidden
               src="https://nextjs.org/icons/file.svg"
@@ -86,8 +126,7 @@ export default function Home() {
           <a
             href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             target="_blank"
-            rel="noopener noreferrer"
-          >
+            rel="noopener noreferrer">
             <Image
               aria-hidden
               src="https://nextjs.org/icons/window.svg"
@@ -100,8 +139,7 @@ export default function Home() {
           <a
             href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
             target="_blank"
-            rel="noopener noreferrer"
-          >
+            rel="noopener noreferrer">
             <Image
               aria-hidden
               src="https://nextjs.org/icons/globe.svg"
